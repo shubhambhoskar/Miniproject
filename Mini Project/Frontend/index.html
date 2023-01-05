@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        form>input{
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    
+        <input type="text" id="name">
+        <input type="email" id="email">
+        <input type="password" id="pass">
+        <button onclick="submit()">submit</button>
+   
+</body>
+</html>
+
+<script>
+  
+
+async function submit() {
+   
+    let query=document.getElementById("name").value;
+    let query1=document.getElementById("email").value;
+    let query2=document.getElementById("pass").value;
+    console.log(query,query1,query2);
+
+    try {
+        let url='http://localhost:8808/admins';
+        let d=JSON.stringify({name:query,email:query1,password:query2});
+      let res=await fetch(url, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+    'Accept': "*/*",
+    'Cache-Control': 'no-cache',
+    'Access-Control-Request-Method':'POST',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true'
+    },
+    body: JSON.stringify({name:query,email:query1,password:query2}),
+    })
+    let data=await res.json();
+    console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
+
+</script>
